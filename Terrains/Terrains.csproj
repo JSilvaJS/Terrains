@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="processing-1.3.6.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
