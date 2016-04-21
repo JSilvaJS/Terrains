@@ -1,6 +1,9 @@
 ﻿var terrains;
 (function() {
   terrains = {
+    horizontalGutter: 64,
+    verticalGutter: 32,
+
     initialize: function() {
       var processing = new Processing("drawingCanvas", terrains.initializeProcessing);
     },
@@ -10,13 +13,13 @@
     },
 
     drawFrame: function(processing) {
-      terrains.autoResize(processing);
-      terrains.drawHorizon(processing);
+      this.autoResize(processing);
+      this.drawHorizon(processing);
     },
 
     autoResize: function(processing) {
-      var width = window.innerWidth - 64;
-      var height = window.innerHeight - 32;
+      var width = window.innerWidth - this.horizontalGutter;
+      var height = window.innerHeight - this.verticalGutter;
       if (processing.width !== width || processing.height !== height)
         processing.size(width, height);
     },
