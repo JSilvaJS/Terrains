@@ -8,11 +8,9 @@
     resized: false,
 
     initialize: function() {
-      this.processing = new Processing("drawingCanvas", function(processing) { terrains.initializeProcessing(processing); });
-    },
-
-    initializeProcessing: function(processing) {
-      processing.draw = function() { terrains.drawFrame() };
+      this.processing = new Processing("drawingCanvas", function(processing) {
+        processing.draw = function() { terrains.drawFrame() };
+      });
     },
 
     drawFrame: function() {
