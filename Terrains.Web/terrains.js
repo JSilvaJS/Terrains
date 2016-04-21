@@ -4,33 +4,38 @@
     horizontalGutter: 64,
     verticalGutter: 32,
 
+    processing: null,
+    resized: false,
+
     initialize: function() {
-      var processing = new Processing("drawingCanvas", terrains.initializeProcessing);
+      this.processing = new Processing("drawingCanvas", function(processing) { terrains.initializeProcessing(processing); });
     },
 
     initializeProcessing: function(processing) {
-      processing.draw = function() { terrains.drawFrame(this) };
+      processing.draw = function() { terrains.drawFrame() };
     },
 
-    drawFrame: function(processing) {
-      this.autoResize(processing);
-      this.drawHorizon(processing);
+    drawFrame: function() {
+      this.autoResize();
+      if (this.resized)
+        this.drawHorizon();
     },
 
-    autoResize: function(processing) {
+    autoResize: function() {
       var width = window.innerWidth - this.horizontalGutter;
       var height = window.innerHeight - this.verticalGutter;
-      if (processing.width !== width || processing.height !== height)
-        processing.size(width, height);
+      this.resized = this.processing.width !== width || this.processing.height !== height;
+      if (this.resized)
+        this.processing.size(width, height);
     },
 
-    drawHorizon: function(processing) {
-      var width = processing.width;
-      var height = processing.height;
+    drawHorizon: function() {
+      var width = this.processing.width;
+      var height = this.processing.height;
       var horizonY = height / 2;
-      processing.line(0, horizonY, width, horizonY);
+      this.processing.line(0, horizonY, width, horizonY);
     }
   };
 
-  window.onload = terrains.initialize;
+  window.onload = function() { terrains.initialize(); };
 })();
