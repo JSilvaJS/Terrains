@@ -99,7 +99,7 @@
       var width = x1 - x0;
       var yScale = Math.pow(.75, iteration);
       var maxYDelta = yScale * width;
-      var y = (y0 + y1) / 2 + this.deltaRoll(maxYDelta);
+      var y = (y0 + y1) / 2 + this.favorPositiveDeltaRoll(maxYDelta);
       return [x, y];
     },
 
@@ -108,7 +108,11 @@
     },
 
     deltaRoll: function(maxMagnitude) {
-      return this.processing.random(2 * maxMagnitude) - maxMagnitude;
+      return this.processing.random(-maxMagnitude, maxMagnitude);
+    },
+
+    favorPositiveDeltaRoll: function(maxMagnitude) {
+      return this.processing.random(-maxMagnitude / 4, maxMagnitude);
     },
 
     windowUp: function() {
