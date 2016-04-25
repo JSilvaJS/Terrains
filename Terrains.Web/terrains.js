@@ -1,37 +1,52 @@
 ﻿var terrains;
 (function() {
   terrains = {
-    horizontalGutter: 64,
-    verticalGutter: 32,
-
+    canvas: null,
     processing: null,
-    resized: false,
+    vertices: null,
 
     initialize: function() {
-      this.processing = new Processing("drawingCanvas", function(processing) {
+      this.canvas = $("canvas");
+      var width = this.canvas.width();
+      var height = this.canvas.height();
+      var domCanvas = this.canvas.get(0);
+      this.processing = new Processing(domCanvas, function(processing) {
+        processing.size(width, height);
         processing.draw = function() { terrains.drawFrame() };
+      });
+
+      this.generateMountains();
+
+      $("#regenerateButton").click(function(e) {
+        e.preventDefault();
+        terrains.generateMountains();
       });
     },
 
-    drawFrame: function() {
-      this.autoResize();
-      if (this.resized)
-        this.drawHorizon();
-    },
-
-    autoResize: function() {
-      var width = window.innerWidth - this.horizontalGutter;
-      var height = window.innerHeight - this.verticalGutter;
-      this.resized = this.processing.width !== width || this.processing.height !== height;
-      if (this.resized)
-        this.processing.size(width, height);
-    },
-
-    drawHorizon: function() {
+    generateMountains: function() {
       var width = this.processing.width;
-      var height = this.processing.height;
-      var horizonY = height / 2;
-      this.processing.line(0, horizonY, width, horizonY);
+      var horizonY = this.processing.height / 2;
+
+      this.vertices = [
+        [0, horizonY],
+        [width, horizonY]
+      ];
+    },
+
+    drawFrame: function() {
+      this.drawMountains();
+    },
+
+    drawMountains: function() {
+      this.processing.background(0xffffff);
+
+      for (var i = 0; i < this.vertices.length - 1; i++) {
+        var x0 = this.vertices[i][0];
+        var y0 = this.vertices[i][1];
+        var x1 = this.vertices[i + 1][0];
+        var y1 = this.vertices[i + 1][1];
+        this.processing.line(x0, y0, x1, y1);
+      }
     }
   };
 
