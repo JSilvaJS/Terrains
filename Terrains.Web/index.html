@@ -4,15 +4,28 @@
   <title>Terrains</title>
   <meta charset="utf-8"/>
   <link type="text/css" rel="stylesheet" href="website.css"/>
-  <script src="jquery-2.2.3.min.js"></script>
-  <script src="processing-1.3.6.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.16/processing.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
   <script src="terrains.js"></script>
 </head>
 <body>
   <form>
     <div>
+      <label for="subdivisionChanceTextbox">Subdivision Chance:</label>
+      <input id="subdivisionChanceTextbox" type="text" />
+    </div>
+    <div>
+      <label for="subdivisionIterationsTextbox">Subdivision Iterations:</label>
+      <input id="subdivisionIterationsTextbox" type="text" />
+    </div>
+    <div>
+      <label for="subdivisionDelayTextbox">Subdivision Delay:</label>
+      <input id="subdivisionDelayTextbox" type="text" />
+    </div>
+    <div>
       <label for="seedTextbox">Seed:</label>
-      <input id="seedTextbox" type="text"/>
+      <input id="seedTextbox" type="text" />
     </div>
     <div>
       <button id="randomSeedButton">Random Seed</button>
