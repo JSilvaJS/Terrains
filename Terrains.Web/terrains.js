@@ -2,13 +2,16 @@
 (function() {
   terrains = {
     subdivisionChance: .25,
-    subdivisionIterations: 12,
+    subdivisionIterations: 50,
+    subdivisionDelay: 6,
     windowMoveSpeed: 24,
 
     canvas: null,
     processing: null,
     vertices: null,
     windowYOffset: 0,
+    currentSubdivisionCounter: 0,
+    currentIteration: 0,
 
     initialize: function() {
       this.canvas = $("canvas");
@@ -26,6 +29,7 @@
       $("#randomSeedButton").click(function(e) {
         e.preventDefault();
         terrains.randomizeSeed();
+        terrains.windowYOffset = 0;
         terrains.generateMountains();
       });
 
@@ -54,11 +58,8 @@
       var seed = $("#seedTextbox").val();
       this.processing.randomSeed(seed);
 
+      this.currentIteration = 0;
       this.vertices = this.getBaseVertices();
-      for (var i = 0; i < this.subdivisionIterations; i++)
-        this.vertices = this.subdivideVertices(this.vertices, i);
-
-      this.windowYOffset = 0;
     },
 
     getBaseVertices: function() {
@@ -97,9 +98,10 @@
 
       var x = this.processing.random(x0, x1);
       var width = x1 - x0;
-      var yScale = Math.pow(.75, iteration);
+      var yScale = .5 * Math.pow(.75, iteration);
       var maxYDelta = yScale * width;
-      var y = (y0 + y1) / 2 + this.favorPositiveDeltaRoll(maxYDelta);
+      var delta = this.deltaRoll(maxYDelta);
+      var y = (y0 + y1) / 2 + delta;
       return [x, y];
     },
 
@@ -111,10 +113,6 @@
       return this.processing.random(-maxMagnitude, maxMagnitude);
     },
 
-    favorPositiveDeltaRoll: function(maxMagnitude) {
-      return this.processing.random(-maxMagnitude / 4, maxMagnitude);
-    },
-
     windowUp: function() {
       this.windowYOffset += this.windowMoveSpeed;
     },
@@ -124,6 +122,16 @@
     },
 
     drawFrame: function() {
+      this.currentSubdivisionCounter++;
+
+      if (this.currentIteration < this.subdivisionIterations &&
+          this.currentSubdivisionCounter > this.subdivisionDelay)
+      {
+        this.vertices = this.subdivideVertices(this.vertices, this.currentIteration);
+        this.currentIteration++;
+        this.currentSubdivisionCounter = 0;
+      }
+
       this.drawMountains();
     },
 
