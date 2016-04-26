@@ -12,6 +12,7 @@
     windowYOffset: 0,
     currentSubdivisionCounter: 0,
     currentIteration: 0,
+    dirty: false,
 
     initialize: function() {
       this.canvas = $("canvas");
@@ -69,6 +70,7 @@
 
       this.currentIteration = 0;
       this.vertices = this.getBaseVertices();
+      this.dirty = true;
     },
 
     getBaseVertices: function() {
@@ -123,26 +125,31 @@
     },
 
     windowUp: function() {
+      this.dirty = true;
       this.windowYOffset += this.windowMoveSpeed;
     },
 
     windowDown: function() {
+      this.dirty = true;
       this.windowYOffset -= this.windowMoveSpeed;
     },
 
     drawFrame: function() {
-      if (this.currentIteration < this.subdivisionIterations) {
+      if (this.currentIteration < this.subdivisionIterations)
         this.currentSubdivisionCounter++;
 
-        while (this.currentIteration < this.subdivisionIterations &&
-               this.currentSubdivisionCounter >= this.subdivisionDelay)
-        {
-          this.vertices = this.subdivideVertices(this.vertices, this.currentIteration);
-          this.currentIteration++;
-          this.currentSubdivisionCounter = 0;
-        }
+      while (this.currentIteration < this.subdivisionIterations &&
+              this.currentSubdivisionCounter >= this.subdivisionDelay)
+      {
+        this.vertices = this.subdivideVertices(this.vertices, this.currentIteration);
+        this.currentIteration++;
+        this.currentSubdivisionCounter = 0;
+        this.dirty = true;
+      }
 
+      if (this.dirty) {
         this.drawMountains();
+        this.dirty = false;
       }
     },
 
