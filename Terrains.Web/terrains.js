@@ -1,8 +1,8 @@
 ﻿var terrains;
 (function() {
   terrains = {
-    subdivisionChance: .25,
-    subdivisionIterations: 50,
+    subdivisionChance: .35,
+    subdivisionIterations: 20,
     subdivisionDelay: 6,
     windowMoveSpeed: 24,
 
@@ -22,6 +22,15 @@
         processing.size(width, height);
         processing.draw = function() { terrains.drawFrame() };
       });
+
+      $("#subdivisionChanceTextbox").val(this.subdivisionChance);
+      $("#subdivisionChanceTextbox").change(function() { terrains.subdivisionChance = $("#subdivisionChanceTextbox").val() });
+
+      $("#subdivisionIterationsTextbox").val(this.subdivisionIterations);
+      $("#subdivisionIterationsTextbox").change(function() { terrains.subdivisionIterations = $("#subdivisionIterationsTextbox").val() });
+
+      $("#subdivisionDelayTextbox").val(this.subdivisionDelay);
+      $("#subdivisionDelayTextbox").change(function() { terrains.subdivisionDelay = $("#subdivisionDelayTextbox").val() });
 
       this.randomizeSeed();
       this.generateMountains();
@@ -122,17 +131,19 @@
     },
 
     drawFrame: function() {
-      this.currentSubdivisionCounter++;
+      if (this.currentIteration < this.subdivisionIterations) {
+        this.currentSubdivisionCounter++;
 
-      if (this.currentIteration < this.subdivisionIterations &&
-          this.currentSubdivisionCounter > this.subdivisionDelay)
-      {
-        this.vertices = this.subdivideVertices(this.vertices, this.currentIteration);
-        this.currentIteration++;
-        this.currentSubdivisionCounter = 0;
+        while (this.currentIteration < this.subdivisionIterations &&
+               this.currentSubdivisionCounter >= this.subdivisionDelay)
+        {
+          this.vertices = this.subdivideVertices(this.vertices, this.currentIteration);
+          this.currentIteration++;
+          this.currentSubdivisionCounter = 0;
+        }
+
+        this.drawMountains();
       }
-
-      this.drawMountains();
     },
 
     drawMountains: function() {
