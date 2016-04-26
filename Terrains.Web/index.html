@@ -10,28 +10,52 @@
   <script src="terrains.js"></script>
 </head>
 <body>
-  <form>
-    <div>
-      <label for="subdivisionChanceTextbox">Subdivision Chance:</label>
-      <input id="subdivisionChanceTextbox" type="text" />
+<div class="main container-fluid">
+  <form class="col-xs-4 container-fluid">
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="subdivisionChanceTextbox">Subdivision Chance:</label>
+      </div>
+      <div class="col-xs-6">
+        <input id="subdivisionChanceTextbox" type="text" />
+      </div>
     </div>
-    <div>
-      <label for="subdivisionIterationsTextbox">Subdivision Iterations:</label>
-      <input id="subdivisionIterationsTextbox" type="text" />
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="subdivisionIterationsTextbox">Subdivision Iterations:</label>
+      </div>
+      <div class="col-xs-6">
+        <input id="subdivisionIterationsTextbox" type="text" />
+      </div>
     </div>
-    <div>
-      <label for="subdivisionDelayTextbox">Subdivision Delay:</label>
-      <input id="subdivisionDelayTextbox" type="text" />
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="subdivisionDelayTextbox">Subdivision Delay:</label>
+      </div>
+      <div class="col-xs-6">
+        <input id="subdivisionDelayTextbox" type="text" />
+      </div>
     </div>
-    <div>
-      <label for="seedTextbox">Seed:</label>
-      <input id="seedTextbox" type="text" />
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="seedTextbox">Seed:</label>
+      </div>
+      <div class="col-xs-6">
+        <input id="seedTextbox" type="text" />
+      </div>
     </div>
-    <div>
-      <button id="randomSeedButton">Random Seed</button>
-      <button id="regenerateButton">Regenerate</button>
+    <div class="row">
+      <div class="col-xs-6">
+        <button id="randomSeedButton">Random Seed</button>
+      </div>
+      <div class="col-xs-6">
+        <button id="regenerateButton">Regenerate</button>
+      </div>
     </div>
   </form>
-  <canvas></canvas>
+  <div class="col-xs-8">
+    <canvas></canvas>
+  </div>
+</div>
 </body>
 </html>

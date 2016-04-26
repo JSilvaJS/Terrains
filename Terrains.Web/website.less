@@ -1,19 +1,25 @@
 ﻿body {
-  > * {
-    display: inline-block;
-    vertical-align: top;
+  text-align: center;
+
+  div.main {
+    margin-top: 45px;
   }
 
-  > form {
-    width: 300px;
-
-    div + div {
+  form div.row {
+    + div.row {
       margin-top: 12px;
+    }
+
+    div:first-child {
+      text-align: right;
+    }
+
+    div:last-child {
+      text-align: left;
     }
   }
 
-  > canvas {
-    width: 900px;
-    height: 768px;
+  canvas {
+    min-height: 700px;
   }
 }

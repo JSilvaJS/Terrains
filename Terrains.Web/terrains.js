@@ -15,8 +15,8 @@
 
     initialize: function() {
       this.canvas = $("canvas");
-      var width = this.canvas.width();
-      var height = this.canvas.height();
+      var width = this.canvas.parent().width();
+      var height = this.canvas.parent().height();
       var domCanvas = this.canvas.get(0);
       this.processing = new Processing(domCanvas, function(processing) {
         processing.size(width, height);
