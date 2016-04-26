@@ -69,9 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jquery-2.2.3.min.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="packages.config" />
     <Content Include="website.min.css">
       <DependentUpon>website.css</DependentUpon>
@@ -91,9 +88,6 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="index.html" />
-    <Content Include="processing-1.3.6.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="terrains.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
